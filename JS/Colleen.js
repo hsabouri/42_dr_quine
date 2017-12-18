@@ -1,5 +1,9 @@
-// Comment
+/*
+    Comment
+*/
 (function f() {
-    console.log("// Comment\n(" + f + ")()")
-    // Comment
+    console.log("/*\n\tComment\n*/\n(" + f + ")()")
+    /*
+        Comment
+    */
 })()
