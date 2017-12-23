@@ -1,12 +1,19 @@
 const fs = require('fs');
+const { exec } = require('child_process');
 let i = 5;
 (function f() {
-    while (i > 0 && i--) {
-        let ext = i;
-        fs.open('Sully_' + ext + '.js', 'w', (err, fd) => {
-            if (!err) {
-                fs.write(fd, "const fs = require('fs');\nlet i = " + ext + ";\n(" + f + ")()\n", () => {})
+    if (i == 0) {
+        return 0
+    }
+    fs.access('Sully_' + i + '.js', err => {
+        if (!err) {
+            i--
+        }
+        fs.writeFile("Sully_" + i + ".js", "const fs = require('fs');\nconst { exec } = require('child_process');\nlet i = " + i + ";\n(" + f + ")()", (err) => {
+            if (!err && i) {
+                exec("node Sully_" + i + ".js", (err, stdout, stderr) => {
+                })
             }
         })
-    }
+    })
 })()
